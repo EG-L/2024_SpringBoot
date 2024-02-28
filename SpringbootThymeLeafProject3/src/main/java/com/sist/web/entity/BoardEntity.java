@@ -19,12 +19,15 @@ import lombok.Data;
 @Data
 // 추가적인 변수가 존재하면 안된다 => insert,update
 public class BoardEntity {
-	@Id
+	@Id//자동 증가
 	private int no;
 	private String name,subject,content;
 	@Column(insertable = true,updatable = false)
 	private String pwd;
+	
+	@Column(insertable = true,updatable = false)
 	private int hit;
+	
 	@Column(insertable = true,updatable = false)
 	private String regdate;
 	

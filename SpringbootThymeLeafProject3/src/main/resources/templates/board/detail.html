@@ -15,8 +15,8 @@
 </style>
 </head>
 <body>
-	<div class="wrapper row3" id="fboardApp">
-  		<main class="container clear">
+	<div class="container">
+  		<div class="row">
   			<h2 class="sectiontitle">내용 보기</h2>
   			<table class="table">
   				<tr>
@@ -42,12 +42,13 @@
   				</tr>
   				<tr>
   					<td colspan=4 class="text-right inline">
-  						<a class="btn btn-xs btn-success" >수정</a>&nbsp;
-  						<a class="btn btn-xs btn-info">삭제</a>&nbsp;
+  						<a th:href="@{/board/update(no=${vo.no})}" class="btn btn-xs btn-success" >수정</a>&nbsp;
+  						<a th:href="@{/board/delete(no=${vo.no})}" class="btn btn-xs btn-info">삭제</a>&nbsp;
   						<a th:href="@{/board/list}" class="btn btn-xs btn-warning">목록</a>&nbsp;
   					</td>
   				</tr>
-  		</main>
+  		</table>
+  		</div>
   	</div>
 </body>
 </html>
