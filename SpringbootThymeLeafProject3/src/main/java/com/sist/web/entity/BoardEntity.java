@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "jpaBoard")
+@Table(name = "jpaboard")
 @DynamicUpdate
 // update시에 제외
 @Data
@@ -30,6 +30,6 @@ public class BoardEntity {
 	
 	@PrePersist
 	public void regdate() {
-		this.regdate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd"));
+		this.regdate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	}
 }

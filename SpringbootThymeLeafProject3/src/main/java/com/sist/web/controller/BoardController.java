@@ -25,6 +25,13 @@ public class BoardController {
 		int start = (rowSize*curpage)-(rowSize);
 		List<BoardEntity> list = bSerivce.boardListData(start);
 		int totalpage = bSerivce.boardTotalPage();
+		
+		for(BoardEntity vo:list) {
+			String s = vo.getRegdate();
+			String[] ss = s.split(" ");
+			vo.setRegdate(ss[0].trim());
+		}
+		
 		model.addAttribute("curpage",curpage);
 		model.addAttribute("list",list);
 		model.addAttribute("totalpage",totalpage);
@@ -40,11 +47,17 @@ public class BoardController {
 	@PostMapping("insert_ok")
 	public String board_insert_ok(BoardEntity vo) {
 		bSerivce.save(vo);
-		return "redirect:/board/list";
+		return "redirect:../board/list";
 	}
 	
 	@GetMapping("detail")
 	public String board_detail(int no,Model model) {
+		BoardEntity vo = bSerivce.findByNo(no);
+		vo.setHit(vo.getHit()+1);
+		bSerivce.save(vo);
+		//조회수 증가
+		vo = bSerivce.findByNo(no);
+		model.addAttribute("vo",vo);
 		
 		return "board/detail";
 	}

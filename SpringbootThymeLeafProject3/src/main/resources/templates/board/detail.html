@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style type="text/css">
+	.container{
+		margin-top:50px;
+	}
+	.row{
+		margin:0px auto;
+		width:800px;
+	}
+</style>
 </head>
 <body>
-
+	<div class="wrapper row3" id="fboardApp">
+  		<main class="container clear">
+  			<h2 class="sectiontitle">내용 보기</h2>
+  			<table class="table">
+  				<tr>
+  					<th width="20%" class="text-center">번호</th>
+  					<td width="30%" class="text-center" th:text="${vo.no}"></td>
+  					<th width="20%" class="text-center">작성일</th>
+  					<td width="30%" class="text-center" th:text="${vo.regdate}"></td>
+  				</tr>
+  				<tr>
+  					<th width="20%" class="text-center">이름</th>
+  					<td width="30%" class="text-center" th:text="${vo.name}"></td>
+  					<th width="20%" class="text-center">조회수</th>
+  					<td width="30%" class="text-center" th:text="${vo.hit}"></td>
+  				</tr>
+  				<tr>
+  					<th width="20%" class="text-center">제목</th>
+  					<td colspan="3" th:text="${vo.subject}"></td>
+  				</tr>
+  				<tr>
+  					<td colspan="4" class="text-center" valign="top" height="200">
+  						<pre style="white-space:pre-wrap;border:none;background-color: white;" th:text="${vo.content}"></pre>
+  					</td>
+  				</tr>
+  				<tr>
+  					<td colspan=4 class="text-right inline">
+  						<a class="btn btn-xs btn-success" >수정</a>&nbsp;
+  						<a class="btn btn-xs btn-info">삭제</a>&nbsp;
+  						<a th:href="@{/board/list}" class="btn btn-xs btn-warning">목록</a>&nbsp;
+  					</td>
+  				</tr>
+  		</main>
+  	</div>
 </body>
 </html>
