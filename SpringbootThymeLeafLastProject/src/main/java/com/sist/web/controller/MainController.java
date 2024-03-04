@@ -21,13 +21,19 @@ public class MainController {
 	public String main_page(Model model,HttpServletRequest request) {
 		
 		Cookie[] cookies = request.getCookies();
+		int k = 0;
 		List<Recipe2> cList = new ArrayList<Recipe2>();
 		if(cookies!=null) {
 			for(int i = cookies.length-1;i>=0;i--) {
 				if(cookies[i].getName().startsWith("recipe")) {
+					if(k>8) {
+						break;
+					}
+					
 					String no = cookies[i].getValue();
 					Recipe2 r = dao.findByNo(Integer.parseInt(no));
 					cList.add(r);
+					k++;
 				}
 			}
 		}
