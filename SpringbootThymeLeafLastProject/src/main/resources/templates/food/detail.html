@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="wrapper row3">
+	  <main class="container clear">
+	      <h2 class="sectiontitle">맛집 상세보기</h2>
+	      <div class="one_third first">
+	       <table class="table">
+	       		<tr>
+	       			<td width=30% rowspan=9 align="center">
+	       				<img th:src="'http://www.menupan.com'+${vo.poster}" style="width:300px;height:200px;">
+	       			</td>
+	       			<td colspan="2"><h3 th:text="${vo.name}"></h3>
+	       		</tr>
+	       		<tr>
+	       			<td width=15%>주소</td>
+	       			<td width=35% th:text="${vo.address}"></td>
+	       		</tr>
+	       		<tr>
+	       			<td width=15%>전화</td>
+	       			<td width=35% th:text="${vo.phone}"></td>
+	       		</tr>
+	       		<tr>
+	       			<td width=15%>음식 종류</td>
+	       			<td width=35% th:text="${vo.type}"></td>
+	       		</tr>
+	       		<tr>
+	       			<td width=15%>테마</td>
+	       			<td width=35% th:text="${vo.theme}"></td>
+	       		</tr>
+	       		<tr>
+	       			<td width=15%>영업시간</td>
+	       			<td width=35% th:text="${vo.time}"></td>
+	       		</tr>
+	       		<tr>
+	       			<td width=15%>좌석</td>
+	       			<td width=35% th:text="${vo.seat}"></td>
+	       		</tr>
+	       </table>
+	       <div style="height:20px">
+	       </div>
+	       <table class="table" th:if="${session.id!=null}">
+		       	<tr>
+		       		<td>
+		       			<form method="post" action="/reply/insert">
+		       				<input type="hidden" name="fno" th:value="${fno}">
+			       			<textarea rows="5" cols="60" style="float: left;" required></textarea>
+			       			<input type="submit" value="댓글쓰기" style="height:92px;width:100px;background-color: green;">
+		       			</form>
+		       		</td>
+		       	</tr>
+	       </table>
+	      </div>
+          <div class="two_third">
+          
+          </div>
+	  </main>
+	</div>
+</body>
+</html>

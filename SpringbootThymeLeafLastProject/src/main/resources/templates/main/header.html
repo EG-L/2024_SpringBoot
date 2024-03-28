@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 	<div class="wrapper row1">
@@ -10,13 +12,71 @@
 	    <div id="logo" class="fl_left">
 	      <h1><a href="/">Recipe And Food</a></h1>
 	    </div>
-	    <!-- <div class="fl_right">
-	      <ul class="inline">
+	    <div class="fl_right">
+	      <ul class="inline" th:if="${session.id==null}">
+	        <li><i class="fa fa-phone"></i>ID:<input type="text" ref="id" v-model="id" size="15"></li>
+	        <li><i class="fa fa-envelope-o"></i>pwd:<input type="password" ref="pwd" v-model="pwd" size="15"></li>
+	        <li><input type="button" value="로그인" @click="login()"></li>
+	      </ul>
+	      <ul class="inline" th:unless="${session.id==null}">
 	        <li><i class="fa fa-phone"></i> </li>
 	        <li><i class="fa fa-envelope-o"></i> </li>
 	      </ul>
-	    </div> -->
+	    </div>
 	  </header>
+	  <script>
+	  	let logApp = Vue.createApp({
+	  		data(){
+	  			return{
+	  				id:'',
+	  				pwd:''
+	  			}
+	  		},
+	  		methods:{
+	  			login(){
+	  				if(this.id===""){
+	  					this.$refs.id.focus();
+	  					return;
+	  				}
+	  				if(this.pwd===""){
+	  					this.$refs.pwd.focus();
+	  					return;
+	  				}
+	  				axios.post("/member/login",null,{
+	  					params:{
+	  						id:this.id,
+	  						pwd:this.pwd
+	  					}
+	  				}).then(response=>{
+	  					if(response.data==='NOID'){
+	  						alert("아이디가 존재하지 않습니다.");
+	  						this.id='';
+	  						this.pwd='';
+	  						this.$refs.id.focus();
+	  					}
+	  					else if(response.data==='NOPWD'){
+	  						alert("비밀번호가 틀립니다.");
+	  						this.pwd='';
+	  						this.$refs.pwd.focus();
+	  					}
+	  					else{
+	  						location.href="/";
+	  					}
+	  				})
+	  			},
+	  			logout(){
+	  				axios.get('/member/logout').then(response=>{
+	  					if(response.data==='yes'){
+	  						location.href="/";
+	  					}
+	  					else{
+	  						alert("로그아웃 실패하셨습니다.");
+	  					}
+	  				})
+	  			}
+	  		}
+	  	}).mount('#header')
+	  </script>
 	</div>
 	<div class="wrapper row2">
 	  <nav id="mainav" class="clear"> 
@@ -24,7 +84,7 @@
 	      <li class="active"><a href="/">Home</a></li>
 	      <li><a class="drop" href="#">맛집</a>
 	        <ul>
-	          <li><a href="pages/gallery.html">맛집 목록</a></li>
+	          <li><a href="/food/list">맛집 목록</a></li>
 	          <li><a href="pages/full-width.html">맛집 찾기</a></li>
 	        </ul>
 	      </li>
